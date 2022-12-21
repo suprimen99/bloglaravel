@@ -29,16 +29,20 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'irgifahlevi@gmail.com',
         //     'password' => bcrypt('12345')
         // ]);
+    //    Category::factory(2)->create();
+        Category::create([
+            'name' => 'Web-Programing',
+            'slug' => 'web-programing'
+        ]);
 
-        // Category::create([
-        //     'name' => 'Web-Programing',
-        //     'slug' => 'web-programing'
-        // ]);
-
-        // Category::create([
-        //     'name' => 'Personal',
-        //     'slug' => 'personal'
-        //     ]);
+         Category::create([
+            'name' => 'Web-design',
+            'slug' => 'web-design'
+        ]);
+        Category::create([
+            'name' => 'Personal',
+            'slug' => 'personal'
+            ]);
 
         Post::factory(20)->create();
 

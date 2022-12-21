@@ -1,22 +1,39 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\Category;
 use App\Models\Post;
+use App\Models\User;
+use Clockwork\Storage\Search;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+
+
     public function index() {
+         $title = '';
+         if(request('category')){
+            $category = Category::firstWhere('slug', request('category'));
+            $title= ' in '. $category->name;
+         }
+         if(request('author')){
+            $author = User::firstWhere('username', request('author'));
+            $title=  ' by '. $author->name;
+         }
         return view('posts',[
-         "title" => "BLOG",
+         "title" => "ALL Posts" . $title,
+         "active"=> "posts",
         //  "posts" => Post::all()
-         "posts" => Post::latest()->get()
+         "posts" => Post::latest()->filter(request(['Search','category','author']))->paginate(7)->withQueryString()
     ]);
     }
 
     public function show(Post $post){
     return view('post',[
-    "title" => "Judul Halaman Pertama",
+    "title" => "single post",
+    "active"=> "posts",
     "post" => $post
     ]);
 
