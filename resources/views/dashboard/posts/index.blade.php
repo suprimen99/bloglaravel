@@ -4,6 +4,11 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 p-2 mb-2 border-bottom">
         <h1 class="h2"> My posts</h1>
     </div>
+    @if(session()->has('success'))
+    <div class="alert alert-success" role="alert">
+        {{ session('success') }}
+    </div>
+    @endif
   <a href="/dashboard/posts/create" class="btn btn-primary mb-3">create new post</a>
      <div class="table-responsive col-lg-8">
         <table class="table table-striped table-sm">
@@ -32,4 +37,6 @@
           </tbody>
         </table>
       </div>
+
+
 @endsection
