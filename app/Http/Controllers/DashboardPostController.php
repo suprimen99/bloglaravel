@@ -47,8 +47,13 @@ class DashboardPostController extends Controller
             'title' => 'required|max:255',
             'slug' => 'required|unique:posts',
             'category_id' => 'required',
+            'images' => 'image|file|max:2048',
             'body' => 'required'
         ]);
+
+        if($request->file('images')){
+            $validatedData['images'] = $request->file('images')->store('Post-images');
+        }
 
         $validatedData['user_id'] = auth()->user()->id;
         $validatedData['excerpt'] = str::limit(strip_tags($request->body),200);
@@ -111,7 +116,7 @@ class DashboardPostController extends Controller
         $validatedData['excerpt'] = str::limit(strip_tags($request->body),200);
 
         Post::where('id', $post->id) -> update ($validatedData);
-        return redirect('/dashboard/posts')->with('success','New post has been added!');
+        return redirect('/dashboard/posts')->with('success','New post has been Updated!');
     }
 
     /**
